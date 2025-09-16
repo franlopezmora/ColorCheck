@@ -31,13 +31,22 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
         />
         
         {/* Native Color Picker */}
-        <input
-          type="color"
-          value={value}
-          onChange={handleInputChange}
-          className="w-12 h-10 rounded-lg border-2 border-[var(--border)] cursor-pointer focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background)]"
-          aria-label="Selector de color visual"
-        />
+        <div className="relative w-12 h-12">
+          <input
+            type="color"
+            value={value}
+            onChange={handleInputChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            aria-label="Selector de color visual"
+          />
+          <div 
+            className="w-full h-full rounded-lg border-2 border-[var(--border)] cursor-pointer"
+            style={{ 
+              backgroundColor: value,
+              borderRadius: '8px'
+            }}
+          />
+        </div>
       </div>
 
     </div>

@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   keywords: ["accesibilidad", "colores", "WCAG", "contraste", "diseño web"],
   authors: [{ name: "ColorCheck Team" }],
   viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

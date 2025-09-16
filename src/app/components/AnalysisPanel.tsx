@@ -2,9 +2,16 @@
 
 import { useState } from 'react';
 
+interface ColorPair {
+  fg: string;
+  bg: string;
+  ratio: number;
+  passes: string[];
+}
+
 interface AnalysisPanelProps {
   colors: string[];
-  pairs: any[];
+  pairs: ColorPair[];
   threshold: string;
 }
 
@@ -67,7 +74,7 @@ export default function AnalysisPanel({ colors, pairs, threshold }: AnalysisPane
     const suggestions = [];
     const summary = getAnalysisSummary();
     
-    if (summary.accessibilityRate < 50) {
+    if (parseFloat(summary.accessibilityRate) < 50) {
       suggestions.push({
         type: 'improvement',
         title: 'Mejorar Accesibilidad',

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generatePaletteByTheme(theme: string, context: string) {
+function generatePaletteByTheme(theme: string, _context: string) {
   // Generar paletas con buen contraste garantizado
   const accessiblePalettes = {
     professional: [

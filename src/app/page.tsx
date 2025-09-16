@@ -17,7 +17,7 @@ const thresholdLabels: Record<Threshold, string> = {
 
 export default function Page() {
   const [colors, setColors] = useState(["#0EA5E9", "#111827", "#F9FAFB", "#F97316"]);
-  const [pairs, setPairs] = useState<any[]>([]);
+  const [pairs, setPairs] = useState<Array<{fg: string; bg: string; ratio: number; passes: string[]}>>([]);
   const [loading, setLoading] = useState(false);
   const [threshold, setThreshold] = useState<Threshold>("aa_normal");
   const [error, setError] = useState<string>("");
@@ -51,9 +51,9 @@ export default function Page() {
         return;
       }
 
-      const res = await fetch("/api/pairs", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
+    const res = await fetch("/api/pairs", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
         body: JSON.stringify({ palette, threshold })
       });
       
@@ -64,12 +64,12 @@ export default function Page() {
         return;
       }
       
-      const json = await res.json();
+    const json = await res.json();
       
       if (!json.ok) {
         setError(json.error || "Error al analizar los colores");
       } else {
-        setPairs(json.pairs ?? []);
+    setPairs(json.pairs ?? []);
         if (json.pairs && json.pairs.length === 0) {
           setError("No se encontraron combinaciones accesibles con el estándar seleccionado");
         }
@@ -86,30 +86,6 @@ export default function Page() {
     navigator.clipboard.writeText(text);
   }
 
-  const handleAIRecommendation = (recommendation: any) => {
-    console.log('Aplicando recomendación:', recommendation);
-    
-    switch (recommendation.type) {
-      case 'accessibility':
-        // Mejorar contraste automáticamente
-        optimizeForAccessibility();
-        break;
-      case 'harmony':
-        // Agregar colores complementarios
-        addComplementaryColors();
-        break;
-      case 'theme':
-        // Aplicar tema específico
-        applyThemeOptimization();
-        break;
-      case 'trends':
-        // Aplicar tendencias de color
-        applyTrendColors();
-        break;
-      default:
-        break;
-    }
-  };
 
   const optimizeForAccessibility = () => {
     // Generar colores con mejor contraste
@@ -320,7 +296,7 @@ export default function Page() {
                   <ol className="list-decimal list-inside space-y-1 text-[var(--muted-foreground)]">
                     <li>Agrega colores a tu paleta (mínimo 2)</li>
                     <li>Selecciona el estándar WCAG deseado</li>
-                    <li>Haz clic en "Analizar Accesibilidad"</li>
+                    <li>Haz clic en &quot;Analizar Accesibilidad&quot;</li>
                     <li>Revisa las combinaciones accesibles encontradas</li>
                     <li>Exporta los resultados en el formato que necesites</li>
                   </ol>
@@ -412,13 +388,13 @@ export default function Page() {
             </div>
             
             <div className="flex justify-center">
-              <button
-                onClick={onAnalyze}
+        <button
+          onClick={onAnalyze}
                 disabled={loading || colors.filter(Boolean).length < 2}
                 className="px-8 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-lg font-medium"
-              >
+        >
                 {loading ? 'Analizando...' : 'Analizar Accesibilidad'}
-              </button>
+        </button>
             </div>
           </div>
         </div>
@@ -575,6 +551,6 @@ export default function Page() {
         )}
         </div>
       </main>
-    </div>
+      </div>
   );
 }

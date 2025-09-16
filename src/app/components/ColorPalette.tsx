@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import ColorPicker from "./ColorPicker";
-import Tooltip from "./Tooltip";
 
 interface ColorPaletteProps {
   colors: string[];

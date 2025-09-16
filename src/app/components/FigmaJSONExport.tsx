@@ -200,7 +200,7 @@ export default function FigmaJSONExport({ pairs, colors, threshold }: FigmaJSONE
 
           <div className="p-3 bg-amber-50 rounded-lg border border-amber-200">
             <p className="text-sm text-amber-700">
-              💡 <strong>Instrucciones:</strong> Copia el JSON y pégalo en Figma usando el plugin "Variables" o importa el archivo directamente en tu proyecto de Figma.
+              💡 <strong>Instrucciones:</strong> Copia el JSON y pégalo en Figma usando el plugin &quot;Variables&quot; o importa el archivo directamente en tu proyecto de Figma.
             </p>
           </div>
         </div>

@@ -7,7 +7,7 @@ interface AIRecommendationsProps {
   onGeneratePalette: (palette: string[]) => void;
 }
 
-export function AIRecommendations({ colors, onGeneratePalette }: AIRecommendationsProps) {
+export function AIRecommendations({ onGeneratePalette }: AIRecommendationsProps) {
   const [loading, setLoading] = useState(false);
 
 

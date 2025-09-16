@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     }
     const { pairs } = accessiblePairs(palette, threshold);
     return NextResponse.json({ ok:true, threshold, pairs: pairs.slice(0, Math.min(200, limit)) });
-  } catch (e: any) {
-    return NextResponse.json({ ok:false, error: e.message ?? "invalid payload" }, { status:400 });
+  } catch (e: unknown) {
+    return NextResponse.json({ ok:false, error: e instanceof Error ? e.message : "invalid payload" }, { status:400 });
   }
 }

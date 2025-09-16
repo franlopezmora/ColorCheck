@@ -2,8 +2,15 @@
 
 import { useState } from 'react';
 
+interface ColorPair {
+  fg: string;
+  bg: string;
+  ratio: number;
+  passes: string[];
+}
+
 interface ExportPanelProps {
-  pairs: any[];
+  pairs: ColorPair[];
   colors: string[];
   threshold: string;
 }

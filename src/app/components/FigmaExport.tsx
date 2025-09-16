@@ -61,7 +61,7 @@ export default function FigmaExport({ pairs, colors, threshold }: FigmaExportPro
     } : { r: 0, g: 0, b: 0 };
   }
 
-  function getColorUsage(color: string, allColors: string[]) {
+  function getColorUsage(color: string, _allColors: string[]) {
     const rgb = hexToRgb(color);
     const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
     
@@ -154,7 +154,7 @@ ${data.colorPalette.map(color =>
 
 ${data.accessibleCombinations.map(combo => 
   `### Combo ${combo.id}: ${combo.foreground} sobre ${combo.background}
-- **Ratio de contraste:** ${combo.contrast}:1
+- **Ratio de contraste:** ${combo.contrastRatio}:1
 - **Estándares cumplidos:** ${combo.standards.join(', ')}
 - **CSS:** \`${combo.css}\`
 

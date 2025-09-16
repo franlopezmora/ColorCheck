@@ -114,7 +114,7 @@ function getThemeSuggestions(theme: string, context: string) {
   return suggestions;
 }
 
-function calculateConfidence(colors: string[], recommendations: any[]) {
+function calculateConfidence(colors: string[], recommendations: Array<{type: string; title: string; description: string; action: string; priority: string}>) {
   // Calcular confianza basada en características de la paleta
   let baseConfidence = 85; // Confianza base
   

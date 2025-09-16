@@ -1,5 +1,5 @@
 "use client";
-import { validatePalette, ValidationResult, getContrastLevel } from "./ColorValidator";
+import { validatePalette, getContrastLevel } from "./ColorValidator";
 
 interface ValidationPanelProps {
   colors: string[];
@@ -126,7 +126,7 @@ export default function ValidationPanel({ colors, pairs = [] }: ValidationPanelP
                     }).length;
                     
                     const percentage = pairs.length > 0 ? (count / pairs.length) * 100 : 0;
-                    const contrastInfo = getContrastLevel(range.min);
+                    const _contrastInfo = getContrastLevel(range.min);
                     
                     return (
                       <div key={index} className="flex items-center justify-between text-xs">

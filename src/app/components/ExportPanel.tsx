@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Modal from './Modal';
 
 interface ColorPair {
   fg: string;
@@ -13,9 +14,11 @@ interface ExportPanelProps {
   pairs: ColorPair[];
   colors: string[];
   threshold: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function ExportPanel({ pairs, colors, threshold }: ExportPanelProps) {
+export default function ExportPanel({ pairs, colors, threshold, isOpen, onClose }: ExportPanelProps) {
   const [activeTab, setActiveTab] = useState('css');
 
   const copyToClipboard = async (text: string) => {
@@ -184,46 +187,44 @@ export default function ExportPanel({ pairs, colors, threshold }: ExportPanelPro
   };
 
   return (
-    <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-[var(--foreground)] flex items-center gap-2">
-          📤 Exportar Resultados
-        </h3>
-        <button
-          onClick={() => copyToClipboard(getContent())}
-          className="px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium"
-        >
-          Copiar
-        </button>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-1 mb-4">
-        {tabs.map((tab) => (
+    <Modal isOpen={isOpen} onClose={onClose} title="📤 Exportar Resultados" size="xl">
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-[var(--muted-foreground)]">
+            {pairs.length} combinaciones accesibles encontradas con estándar {threshold.toUpperCase()}
+          </div>
           <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id
-                ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
-                : 'bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80'
-            }`}
+            onClick={() => copyToClipboard(getContent())}
+            className="px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium"
           >
-            {tab.icon} {tab.label}
+            Copiar
           </button>
-        ))}
-      </div>
+        </div>
 
-      {/* Content */}
-      <div className="bg-[var(--background)] rounded-lg border border-[var(--border)] p-4">
-        <pre className="text-sm text-[var(--foreground)] overflow-x-auto whitespace-pre-wrap font-mono">
-          {getContent()}
-        </pre>
-      </div>
+        {/* Tabs */}
+        <div className="flex flex-wrap gap-1">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
+                  : 'bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80'
+              }`}
+            >
+              {tab.icon} {tab.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="mt-4 text-xs text-[var(--muted-foreground)]">
-        {pairs.length} combinaciones accesibles encontradas con estándar {threshold.toUpperCase()}
+        {/* Content */}
+        <div className="bg-[var(--background)] rounded-lg border border-[var(--border)] p-4 max-h-[60vh] overflow-y-auto">
+          <pre className="text-sm text-[var(--foreground)] overflow-x-auto whitespace-pre-wrap font-mono">
+            {getContent()}
+          </pre>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 }

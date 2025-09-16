@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ColorPalette from "./components/ColorPalette";
 import ExportPanel from "./components/ExportPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
@@ -25,6 +25,19 @@ export default function Page() {
   const [showExport, setShowExport] = useState(false);
   const [showAPIInfo, setShowAPIInfo] = useState(false);
   const [showDocs, setShowDocs] = useState(false);
+
+  // Bloquear scroll cuando cualquier modal esté abierto
+  useEffect(() => {
+    if (showAPIInfo || showDocs || showAnalysis || showExport) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showAPIInfo, showDocs, showAnalysis, showExport]);
 
   async function onAnalyze() {
     setLoading(true);
@@ -187,16 +200,24 @@ export default function Page() {
 
       {/* API Info Modal */}
       {showAPIInfo && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setShowAPIInfo(false)}
+        >
+          <div 
+            className="bg-[var(--card)] rounded-lg border border-[var(--border)] max-w-4xl w-full max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-[var(--foreground)]">🔌 API Endpoints</h2>
                 <button
                   onClick={() => setShowAPIInfo(false)}
-                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]"
                 >
-                  ✕
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
               
@@ -244,16 +265,24 @@ export default function Page() {
 
       {/* Docs Modal */}
       {showDocs && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setShowDocs(false)}
+        >
+          <div 
+            className="bg-[var(--card)] rounded-lg border border-[var(--border)] max-w-4xl w-full max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-[var(--foreground)]">📚 Documentación</h2>
                 <button
                   onClick={() => setShowDocs(false)}
-                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]"
                 >
-                  ✕
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
               
@@ -458,37 +487,40 @@ export default function Page() {
               </button>
             </div>
 
-            {/* Optional Panels - Collapsible (only show if there are colors) */}
+            {/* Action Buttons */}
             {colors.length > 0 && (
-              <div className="space-y-4">
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setShowAnalysis(!showAnalysis)}
-                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors text-sm font-medium"
-                  >
-                    📈 {showAnalysis ? 'Ocultar' : 'Mostrar'} Análisis
-                  </button>
-                  <button
-                    onClick={() => setShowExport(!showExport)}
-                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors text-sm font-medium"
-                  >
-                    📤 {showExport ? 'Ocultar' : 'Mostrar'} Exportación
-                  </button>
-                </div>
-              
-              {showAnalysis && (
-                <div className="animate-fade-in">
-                  <AnalysisPanel colors={colors} pairs={pairs} threshold={threshold} />
-                </div>
-              )}
-              
-              {showExport && (
-                <div className="animate-fade-in">
-                  <ExportPanel pairs={pairs} colors={colors} threshold={threshold} />
-                </div>
-              )}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowAnalysis(true)}
+                  className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors text-sm font-medium"
+                >
+                  📈 Análisis de Paleta
+                </button>
+                <button
+                  onClick={() => setShowExport(true)}
+                  className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors text-sm font-medium"
+                >
+                  📤 Exportar Resultados
+                </button>
               </div>
             )}
+
+            {/* Modals */}
+            <AnalysisPanel 
+              colors={colors} 
+              pairs={pairs} 
+              threshold={threshold} 
+              isOpen={showAnalysis}
+              onClose={() => setShowAnalysis(false)}
+            />
+            
+            <ExportPanel 
+              pairs={pairs} 
+              colors={colors} 
+              threshold={threshold} 
+              isOpen={showExport}
+              onClose={() => setShowExport(false)}
+            />
 
             {/* Color Combinations Grid */}
             <div 

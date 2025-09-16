@@ -1,8 +1,10 @@
 "use client";
 import { useTheme } from "../hooks/useTheme";
+import { useState } from "react";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme, mounted } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
   if (!mounted) {
     return (
@@ -12,10 +14,19 @@ export default function ThemeToggle() {
     );
   }
 
+  const handleClick = () => {
+    toggleTheme();
+    setIsHovered(false);
+  };
+
   return (
     <button
-      onClick={toggleTheme}
-      className="w-8 h-8 rounded-lg bg-[var(--muted)] hover:bg-[var(--accent)] flex items-center justify-center transition-colors focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background)]"
+      onClick={handleClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`w-8 h-8 rounded-lg bg-[var(--muted)] flex items-center justify-center transition-colors ${
+        isHovered ? "bg-[var(--accent)] ring-2 ring-[var(--primary)] ring-offset-2 ring-offset-[var(--background)]" : ""
+      }`}
       aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
       title={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
     >

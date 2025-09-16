@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Modal from './Modal';
 
 interface ColorPair {
   fg: string;
@@ -13,9 +14,11 @@ interface AnalysisPanelProps {
   colors: string[];
   pairs: ColorPair[];
   threshold: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function AnalysisPanel({ colors, pairs, threshold }: AnalysisPanelProps) {
+export default function AnalysisPanel({ colors, pairs, threshold, isOpen, onClose }: AnalysisPanelProps) {
   const [activeTab, setActiveTab] = useState('summary');
 
   const getAnalysisSummary = () => {
@@ -288,39 +291,35 @@ export default function AnalysisPanel({ colors, pairs, threshold }: AnalysisPane
   };
 
   return (
-    <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-[var(--foreground)] flex items-center gap-2">
-          📈 Análisis de Paleta
-        </h3>
-      </div>
+    <Modal isOpen={isOpen} onClose={onClose} title="📈 Análisis de Paleta" size="lg">
+      <div className="space-y-6">
+        {/* Tabs */}
+        <div className="flex flex-wrap gap-1">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
+                  : 'bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80'
+              }`}
+            >
+              {tab.icon} {tab.label}
+              {tab.count !== undefined && tab.count > 0 && (
+                <span className="ml-1 px-1.5 py-0.5 text-xs bg-white/20 rounded-full">
+                  {tab.count}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-1 mb-4">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id
-                ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
-                : 'bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80'
-            }`}
-          >
-            {tab.icon} {tab.label}
-            {tab.count !== undefined && tab.count > 0 && (
-              <span className="ml-1 px-1.5 py-0.5 text-xs bg-white/20 rounded-full">
-                {tab.count}
-              </span>
-            )}
-          </button>
-        ))}
+        {/* Content */}
+        <div className="min-h-[400px]">
+          {getTabContent()}
+        </div>
       </div>
-
-      {/* Content */}
-      <div className="min-h-[200px]">
-        {getTabContent()}
-      </div>
-    </div>
+    </Modal>
   );
 }

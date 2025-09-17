@@ -6,6 +6,7 @@ import AnalysisPanel from "./components/AnalysisPanel";
 import ThemeToggle from "./components/ThemeToggle";
 import PaletteGenerator from "./components/PaletteGenerator";
 import CommandPalette from "./components/CommandPalette";
+import PaletteManager from "./components/PaletteManager";
 import { useCommandPalette } from "./hooks/useCommandPalette";
 
 type Threshold = "aa_normal" | "aa_large" | "aaa_normal" | "aaa_large" | "ui_graphic";
@@ -28,19 +29,20 @@ export default function Page() {
   const [showExport, setShowExport] = useState(false);
   const [showAPIInfo, setShowAPIInfo] = useState(false);
   const [showDocs, setShowDocs] = useState(false);
+  const [showPaletteManager, setShowPaletteManager] = useState(false);
   
   // Hook para Command Palette
   const { isOpen: isCommandPaletteOpen, closeCommandPalette } = useCommandPalette();
 
   // Bloquear scroll cuando cualquier modal esté abierto
   useEffect(() => {
-    const hasOpenModal = showAPIInfo || showDocs || showAnalysis || showExport || isCommandPaletteOpen;
+    const hasOpenModal = showAPIInfo || showDocs || showAnalysis || showExport || showPaletteManager || isCommandPaletteOpen;
     document.body.style.overflow = hasOpenModal ? 'hidden' : 'unset';
     
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showAPIInfo, showDocs, showAnalysis, showExport, isCommandPaletteOpen]);
+  }, [showAPIInfo, showDocs, showAnalysis, showExport, showPaletteManager, isCommandPaletteOpen]);
 
   // Análisis automático cuando cambian los colores
   useEffect(() => {
@@ -107,6 +109,10 @@ export default function Page() {
   }, [colors, threshold]);
 
   const handlePaletteGenerated = (newColors: string[]) => {
+    setColors(newColors);
+  };
+
+  const handleLoadPalette = (newColors: string[]) => {
     setColors(newColors);
   };
 
@@ -556,6 +562,20 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
+
+                {/* Palette Manager Button */}
+                <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] p-4">
+                  <button
+                    onClick={() => setShowPaletteManager(true)}
+                    className="w-full px-3 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium flex items-center justify-center gap-2"
+                  >
+                    <span>💾</span>
+                    <span>Gestionar Paletas</span>
+                  </button>
+                  <p className="text-xs text-[var(--muted-foreground)] text-center mt-2">
+                    Guarda y carga tus paletas favoritas
+                  </p>
+                </div>
                 
                 {/* Error Message */}
                 {error && (
@@ -646,6 +666,12 @@ export default function Page() {
                   >
                     📤 Exportar Resultados
                   </button>
+                  <button
+                    onClick={() => setShowPaletteManager(true)}
+                    className="px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium"
+                  >
+                    💾 Guardar Paleta
+                  </button>
                 </div>
               )}
 
@@ -726,8 +752,17 @@ export default function Page() {
             onGenerate={handleCommandGenerate}
             onExport={handleCommandExport}
             onToggleTheme={handleToggleTheme}
+            onOpenPaletteManager={() => setShowPaletteManager(true)}
             colors={colors}
             pairs={pairs}
+          />
+
+          {/* Palette Manager */}
+          <PaletteManager
+            currentColors={colors}
+            onLoadPalette={handleLoadPalette}
+            isOpen={showPaletteManager}
+            onClose={() => setShowPaletteManager(false)}
           />
         </div>
       </main>

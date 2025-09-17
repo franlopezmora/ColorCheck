@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface Command {
   id: string;
@@ -10,7 +9,7 @@ interface Command {
   icon: string;
   action: () => void;
   shortcut?: string;
-  category: 'analysis' | 'generation' | 'export' | 'navigation' | 'settings';
+  category: 'analysis' | 'generation' | 'export' | 'navigation' | 'settings' | 'storage';
 }
 
 interface CommandPaletteProps {
@@ -20,6 +19,7 @@ interface CommandPaletteProps {
   onGenerate: () => void;
   onExport: () => void;
   onToggleTheme: () => void;
+  onOpenPaletteManager: () => void;
   colors: string[];
   pairs: Array<{fg: string; bg: string; ratio: number; passes: string[]}>;
 }
@@ -31,6 +31,7 @@ export default function CommandPalette({
   onGenerate, 
   onExport, 
   onToggleTheme,
+  onOpenPaletteManager,
   colors,
   pairs
 }: CommandPaletteProps) {
@@ -38,7 +39,6 @@ export default function CommandPalette({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const commandsListRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   // Comandos disponibles
   const commands: Command[] = [
@@ -139,6 +139,26 @@ export default function CommandPalette({
       category: 'navigation'
     },
     
+    // Almacenamiento
+    {
+      id: 'save-palette',
+      title: 'Guardar Paleta',
+      description: 'Guarda la paleta actual en el almacenamiento local',
+      icon: '💾',
+      action: onOpenPaletteManager,
+      shortcut: 'Ctrl+K → S',
+      category: 'storage'
+    },
+    {
+      id: 'load-palette',
+      title: 'Cargar Paleta',
+      description: 'Carga una paleta guardada anteriormente',
+      icon: '📂',
+      action: onOpenPaletteManager,
+      shortcut: 'Ctrl+K → L',
+      category: 'storage'
+    },
+    
     // Configuración
     {
       id: 'toggle-theme',
@@ -171,8 +191,8 @@ export default function CommandPalette({
   );
 
   // Función para hacer scroll al elemento seleccionado
-  const scrollToSelected = (index: number) => {
-    if (commandsListRef.current && index >= 0 && index < filteredCommands.length) {
+  const scrollToSelected = useCallback((index: number) => {
+    if (commandsListRef.current && index >= 0) {
       const selectedElement = commandsListRef.current.children[index] as HTMLElement;
       if (selectedElement) {
         // Obtener el contenedor scrolleable
@@ -195,7 +215,7 @@ export default function CommandPalette({
         }
       }
     }
-  };
+  }, []);
 
   // Manejar teclas
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -242,7 +262,7 @@ export default function CommandPalette({
     if (filteredCommands.length > 0) {
       scrollToSelected(selectedIndex);
     }
-  }, [selectedIndex, filteredCommands.length]);
+  }, [selectedIndex, filteredCommands.length, scrollToSelected]);
 
   if (!isOpen) return null;
 

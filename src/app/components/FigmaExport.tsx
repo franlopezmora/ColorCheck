@@ -26,7 +26,7 @@ export default function FigmaExport({ pairs, colors, threshold }: FigmaExportPro
         name: `Color ${index + 1}`,
         hex: color,
         rgb: rgb,
-        usage: getColorUsage(color, colors)
+        usage: getColorUsage(color)
       };
     });
 

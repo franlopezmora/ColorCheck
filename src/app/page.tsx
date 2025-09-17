@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ColorPalette from "./components/ColorPalette";
 import ExportPanel from "./components/ExportPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
@@ -150,17 +150,17 @@ export default function Page() {
   };
 
   // Funciones para Command Palette
-  const handleCommandAnalyze = () => {
+  const handleCommandAnalyze = useCallback(() => {
     setShowAnalysis(true);
-  };
+  }, []);
 
-  const handleCommandGenerate = () => {
+  const handleCommandGenerate = useCallback(() => {
     // Scroll hacia el generador de paletas
     const generatorElement = document.querySelector('[data-generator]');
     if (generatorElement) {
       generatorElement.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
   const handleCommandExport = () => {
     setShowExport(true);
@@ -170,9 +170,9 @@ export default function Page() {
   const { toggleTheme } = useTheme();
   const { toasts, showSuccess, removeToast } = useToast();
   
-  const handleToggleTheme = () => {
+  const handleToggleTheme = useCallback(() => {
     toggleTheme();
-  };
+  }, [toggleTheme]);
 
   // Manejar comandos rápidos del Command Palette
   useEffect(() => {

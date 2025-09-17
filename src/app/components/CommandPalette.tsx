@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 interface Command {
   id: string;
@@ -64,7 +64,7 @@ export default function CommandPalette({
   }, []);
 
   // ----- Comandos disponibles -----
-  const commands: Command[] = [
+  const commands: Command[] = useMemo(() => [
     // Análisis
     {
       id: 'analyze-current',
@@ -409,7 +409,7 @@ export default function CommandPalette({
       keys: ['d'],
       shortcut: 'd',
     },
-  ];
+  ], [onAnalyze, onClose, onGenerate, onExport, onToggleTheme, onOpenPaletteManager, onShowToast, colors, pairs]);
 
   // Filtrar comandos según búsqueda
   const filteredCommands = commands.filter((command) =>

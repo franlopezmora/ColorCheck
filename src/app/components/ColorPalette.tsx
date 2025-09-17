@@ -10,7 +10,7 @@ interface ColorPaletteProps {
 export default function ColorPalette({ colors, onChange }: ColorPaletteProps) {
   const [showAddColor, setShowAddColor] = useState(false);
   const [newColor, setNewColor] = useState("#000000");
-  const [editingColors, setEditingColors] = useState<Record<number, string>>({});
+  const [editingColors, setEditingColors] = useState<Record<number, string | undefined>>({});
   const [bulkText, setBulkText] = useState("");
 
   function addColor() {

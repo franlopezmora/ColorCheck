@@ -84,137 +84,123 @@ export default function ColorPalette({ colors, onChange }: ColorPaletteProps) {
       </div>
 
       {/* Horizontal Color Palette */}
-      <div className="flex flex-wrap gap-4 items-start p-4 border border-[var(--border)] rounded-lg bg-[var(--muted)]/20">
+      <div className="flex flex-wrap gap-4 p-4">
         {colors.map((color, index) => (
           <div 
             key={index} 
-            className="flex flex-col items-center space-y-2 group"
+            className="flex items-center space-x-3 p-3 border border-[var(--border)] rounded-lg bg-[var(--card)] group"
             role="listitem"
           >
-            {/* Color Swatch */}
-            <div className="relative">
-              <div className="flex gap-1">
-                {/* Color Picker */}
-                <div className="relative w-12 h-12">
-                  <input
-                    type="color"
-                    value={color}
-                    onChange={(e) => updateColor(index, e.target.value)}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    title="Selector de color"
-                  />
-                  <div 
-                    className="w-full h-full rounded-lg border-2 border-[var(--border)] cursor-pointer"
-                    style={{ 
-                      backgroundColor: color,
-                      borderRadius: '8px'
-                    }}
-                  />
-                </div>
-                
-                {/* Hex Input */}
-                <input
-                  type="text"
-                  value={editingColors[index] !== undefined ? editingColors[index] : color}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setEditingColors(prev => ({ ...prev, [index]: value }));
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      // Validar y formatear al presionar Enter
-                      const value = e.currentTarget.value;
-                      if (/^#[0-9a-fA-F]{6}$/.test(value)) {
-                        updateColor(index, value);
-                        setEditingColors(prev => ({ ...prev, [index]: undefined }));
-                        e.currentTarget.blur();
-                      } else if (/^[0-9a-fA-F]{6}$/.test(value)) {
-                        // Si falta el #, agregarlo
-                        updateColor(index, '#' + value);
-                        setEditingColors(prev => ({ ...prev, [index]: undefined }));
-                        e.currentTarget.blur();
-                      }
-                    }
-                  }}
-                  onBlur={(e) => {
-                    // Validar y formatear al perder el foco
-                    const value = e.target.value;
-                    if (/^#[0-9a-fA-F]{6}$/.test(value)) {
-                      updateColor(index, value);
-                    } else if (/^[0-9a-fA-F]{6}$/.test(value)) {
-                      updateColor(index, '#' + value);
-                    }
-                    // Limpiar el estado de edición
-                    setEditingColors(prev => ({ ...prev, [index]: undefined }));
-                  }}
-                  onFocus={() => {
-                    // Al hacer focus, inicializar con el color actual
-                    setEditingColors(prev => ({ ...prev, [index]: color }));
-                  }}
-                  className="w-12 h-12 px-1 text-xs font-mono bg-[var(--background)] border-2 border-[var(--border)] rounded-lg text-[var(--foreground)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 transition-all"
-                  placeholder="#000000"
-                  title="Código hex (Enter para confirmar)"
-                />
-              </div>
-              
-              {/* Remove Button */}
-              <button
-                onClick={() => removeColor(index)}
-                className="absolute -top-2 -right-2 w-6 h-6 bg-[var(--destructive)] text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[var(--destructive)]/80 focus:opacity-100 focus:ring-2 focus:ring-[var(--destructive)] focus:ring-offset-2"
-                title="Eliminar color"
-                aria-label={`Eliminar color ${color}`}
-              >
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+            {/* Color Picker */}
+            <div className="relative w-12 h-12">
+              <input
+                type="color"
+                value={color}
+                onChange={(e) => updateColor(index, e.target.value)}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                title="Selector de color"
+              />
+              <div 
+                className="w-full h-full rounded-lg border border-[var(--border)] cursor-pointer"
+                style={{ 
+                  backgroundColor: color,
+                  borderRadius: '8px'
+                }}
+              />
             </div>
 
-            {/* Color Label - Simple, no editable */}
-            <div className="px-3 py-1 text-xs text-[var(--muted-foreground)] min-w-[60px] text-center">
-              Color {index + 1}
-            </div>
-
-            {/* Hex Code */}
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(color);
-                // Aquí podrías mostrar un toast de confirmación
+            {/* Hex Input */}
+            <input
+              type="text"
+              value={editingColors[index] !== undefined ? editingColors[index] : color}
+              onChange={(e) => {
+                const value = e.target.value;
+                setEditingColors(prev => ({ ...prev, [index]: value }));
               }}
-              className="px-3 py-1 text-xs font-mono bg-[var(--background)] border border-[var(--border)] rounded text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors cursor-pointer"
-              style={{ backgroundColor: color, color: getContrastColor(color) }}
-              title="Click para copiar código hex"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const value = e.currentTarget.value;
+                  if (/^#[0-9a-fA-F]{6}$/.test(value)) {
+                    updateColor(index, value);
+                    setEditingColors(prev => ({ ...prev, [index]: undefined }));
+                    e.currentTarget.blur();
+                  } else if (/^[0-9a-fA-F]{6}$/.test(value)) {
+                    updateColor(index, '#' + value);
+                    setEditingColors(prev => ({ ...prev, [index]: undefined }));
+                    e.currentTarget.blur();
+                  }
+                }
+              }}
+              onBlur={(e) => {
+                const value = e.target.value;
+                if (/^#[0-9a-fA-F]{6}$/.test(value)) {
+                  updateColor(index, value);
+                } else if (/^[0-9a-fA-F]{6}$/.test(value)) {
+                  updateColor(index, '#' + value);
+                }
+                setEditingColors(prev => ({ ...prev, [index]: undefined }));
+              }}
+              onFocus={() => {
+                setEditingColors(prev => ({ ...prev, [index]: color }));
+              }}
+              className="w-12 h-12 px-1 text-xs font-mono bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--foreground)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 transition-all"
+              placeholder="#000000"
+              title="Código hex (Enter para confirmar)"
+            />
+
+            {/* Label and Hex Code */}
+            <div className="flex flex-col space-y-1">
+              <div className="text-sm text-[var(--muted-foreground)]">
+                Color {index + 1}
+              </div>
+              <div 
+                className="text-xs font-mono px-2 py-1 rounded border border-[var(--border)] cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={() => {
+                  navigator.clipboard.writeText(color);
+                }}
+                title="Click para copiar"
+                style={{ 
+                  backgroundColor: color, 
+                  color: getContrastColor(color) 
+                }}
+              >
+                {color}
+              </div>
+            </div>
+
+            {/* Remove Button */}
+            <button
+              onClick={() => removeColor(index)}
+              className="text-[var(--muted-foreground)] hover:text-[var(--destructive)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]/20"
+              title="Eliminar color"
             >
-              {color.toUpperCase()}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
             </button>
           </div>
         ))}
 
-        {/* Add New Color Button */}
-        <div className="flex flex-col items-center space-y-2">
-          <div className="relative w-12 h-12">
-            <button
-              onClick={() => setShowAddColor(true)}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              aria-label="Agregar nuevo color"
-            />
-            <div 
-              className="w-full h-full border-2 border-dashed border-[var(--border)] rounded-lg flex items-center justify-center hover:border-[var(--primary)] hover:bg-[var(--primary)]/5 transition-colors group cursor-pointer"
-              style={{ borderRadius: '8px' }}
-            >
-              <svg 
-                className="w-6 h-6 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] transition-colors" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
+        {/* Add Color Button */}
+        <div 
+          className="flex items-center space-x-3 p-3 border-2 border-dashed border-[var(--border)] rounded-lg bg-[var(--muted)]/20 hover:bg-[var(--muted)]/40 transition-colors cursor-pointer group"
+          onClick={() => setShowAddColor(true)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              setShowAddColor(true);
+            }
+          }}
+        >
+          <div className="w-12 h-12 flex items-center justify-center border-2 border-dashed border-[var(--border)] rounded-lg group-hover:border-[var(--primary)] transition-colors">
+            <svg className="w-6 h-6 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
           </div>
-          <div className="px-3 py-1 text-xs text-[var(--muted-foreground)]">
+          <span className="text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary)] transition-colors">
             Agregar
-          </div>
+          </span>
         </div>
       </div>
 

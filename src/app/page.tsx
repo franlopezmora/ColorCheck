@@ -235,7 +235,7 @@ export default function Page() {
                           </div>
                           <div className="flex gap-2">
                             <span className="font-mono bg-[var(--background)] px-2 py-1 rounded">threshold</span>
-                            <span className="text-[var(--muted-foreground)]">Estándar WCAG: "aa_normal", "aa_large", "aaa_normal"</span>
+                            <span className="text-[var(--muted-foreground)]">Estándar WCAG: &quot;aa_normal&quot;, &quot;aa_large&quot;, &quot;aaa_normal&quot;</span>
                           </div>
                           <div className="flex gap-2">
                             <span className="font-mono bg-[var(--background)] px-2 py-1 rounded">limit</span>

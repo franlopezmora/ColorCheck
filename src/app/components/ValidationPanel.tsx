@@ -126,7 +126,6 @@ export default function ValidationPanel({ colors, pairs = [] }: ValidationPanelP
                     }).length;
                     
                     const percentage = pairs.length > 0 ? (count / pairs.length) * 100 : 0;
-                    const _contrastInfo = getContrastLevel(range.min);
                     
                     return (
                       <div key={index} className="flex items-center justify-between text-xs">

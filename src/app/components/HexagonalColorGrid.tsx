@@ -10,8 +10,7 @@ interface HexagonalColorGridProps {
 export default function HexagonalColorGrid({ 
   colors, 
   onColorSelect, 
-  selectedColor,
-  maxColors = 25 
+  selectedColor
 }: HexagonalColorGridProps) {
   
   // Crear una cuadrícula hexagonal de 5x5

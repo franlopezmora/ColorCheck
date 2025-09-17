@@ -4,7 +4,7 @@
 
 Una herramienta moderna y profesional para analizar la accesibilidad de paletas de colores según los estándares WCAG AA y AAA. ColorCheck te ayuda a crear diseños inclusivos verificando automáticamente el contraste entre colores y generando combinaciones accesibles.
 
-![ColorCheck Logo](https://img.shields.io/badge/ColorCheck-v1.0-blue?style=for-the-badge&logo=color-sampler)
+![ColorCheck Logo](https://img.shields.io/badge/ColorCheck-v1.1-blue?style=for-the-badge&logo=color-sampler)
 
 ## ✨ Características
 

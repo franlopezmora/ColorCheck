@@ -1,10 +1,11 @@
 "use client";
 import { useTheme } from "../hooks/useTheme";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme, mounted } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   if (!mounted) {
     return (
@@ -16,11 +17,17 @@ export default function ThemeToggle() {
 
   const handleClick = () => {
     toggleTheme();
-    setIsHovered(false);
+    // No resetear el estado hover para mantener el efecto visual
+    // setIsHovered(false);
+    // Mantener el foco en el botón después del cambio de tema
+    setTimeout(() => {
+      buttonRef.current?.focus();
+    }, 0);
   };
 
   return (
     <button
+      ref={buttonRef}
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

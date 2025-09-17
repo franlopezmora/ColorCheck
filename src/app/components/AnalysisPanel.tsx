@@ -232,7 +232,11 @@ export default function AnalysisPanel({ colors, pairs, threshold, isOpen, onClos
           <div className="space-y-3">
             {warnings.length === 0 ? (
               <div className="text-center py-8 text-[var(--muted-foreground)]">
-                <div className="text-4xl mb-2">✅</div>
+                <div className="mb-2">
+                  <svg className="w-12 h-12 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
                 <p>No hay advertencias</p>
               </div>
             ) : (

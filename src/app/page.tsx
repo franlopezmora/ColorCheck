@@ -668,7 +668,7 @@ export default function Page() {
                   </button>
                   <button
                     onClick={() => setShowPaletteManager(true)}
-                    className="px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium"
+                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--secondary)]/90 transition-colors text-sm font-medium"
                   >
                     💾 Guardar Paleta
                   </button>

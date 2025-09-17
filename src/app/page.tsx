@@ -338,7 +338,7 @@ export default function Page() {
                     Analiza la accesibilidad de paletas de colores según estándares WCAG
                   </p>
                   <div className="mt-2 text-xs text-[var(--muted-foreground)]">
-                    <span className="bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-1 rounded">v1.0</span>
+                    <span className="bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-1 rounded">v1.1</span>
                   </div>
                 </div>
 

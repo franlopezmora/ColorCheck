@@ -239,6 +239,8 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 - 💼 LinkedIn: [Francisco López Mora](https://linkedin.com/in/franciscolopezmora)
 
 
+
+
 <div align="center">
 
 **¿Te gusta ColorCheck? ¡Dale una ⭐ al repositorio!**

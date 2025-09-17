@@ -236,7 +236,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 **Francisco López Mora**
 - 📧 Email: franciscolopezmora3@gmail.com
 - 🐙 GitHub: [@franlopezmora](https://github.com/franlopezmora)
-- 💼 LinkedIn: [Francisco López Mora](https://linkedin.com/in/franlopezmora)
+- 💼 LinkedIn: [Francisco López Mora](https://linkedin.com/in/franciscolopezmora)
 
 ## 🙏 Agradecimientos
 

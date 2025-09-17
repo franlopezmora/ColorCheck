@@ -255,7 +255,10 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
           )}
           {error && (
             <div className="mb-4 p-3 bg-[var(--destructive)]/10 border border-[var(--destructive)]/20 rounded-lg text-[var(--destructive)] text-sm">
-              ⚠️ {error}
+              <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              {error}
             </div>
           )}
 
@@ -424,14 +427,18 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                           className="px-2 py-1 text-xs bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded hover:bg-[var(--secondary)]/80 transition-colors"
                           title="Editar nombre"
                         >
-                          ✏️
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
                         </button>
                         <button
                           onClick={() => handleDeletePalette(palette.id, palette.name)}
                           className="px-2 py-1 text-xs bg-[var(--destructive)] text-[var(--destructive-foreground)] rounded hover:bg-[var(--destructive)]/90 transition-colors"
                           title="Eliminar paleta"
                         >
-                          🗑️
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
                         </button>
                       </div>
                     </div>
@@ -593,7 +600,10 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
 
                 {/* Help Text */}
                 <p className="text-xs text-[var(--muted-foreground)]">
-                  💡 Puedes usar el selector de color o escribir el código HEX directamente
+                  <svg className="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  Puedes usar el selector de color o escribir el código HEX directamente
                 </p>
               </div>
             </div>

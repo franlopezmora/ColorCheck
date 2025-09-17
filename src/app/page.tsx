@@ -441,7 +441,12 @@ export default function Page() {
 
                 {/* Disclaimer */}
                 <div className="bg-[var(--warning)]/10 border border-[var(--warning)]/20 rounded-lg p-4">
-                  <h4 className="font-medium text-[var(--warning)] mb-2">⚠️ Disclaimer</h4>
+                  <h4 className="font-medium text-[var(--warning)] mb-2 flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    Disclaimer
+                  </h4>
                   <p className="text-sm text-[var(--muted-foreground)]">
                     Esta API es gratuita para proyectos personales. Para uso comercial o alto volumen de peticiones, 
                     contacta con el desarrollador:
@@ -693,7 +698,9 @@ export default function Page() {
                     role="alert"
                   >
                     <div className="flex items-center space-x-2">
-                      <span aria-hidden="true">⚠️</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
                       <span className="font-medium text-sm">{error}</span>
                     </div>
                   </div>

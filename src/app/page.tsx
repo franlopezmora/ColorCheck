@@ -5,6 +5,8 @@ import ExportPanel from "./components/ExportPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
 import ThemeToggle from "./components/ThemeToggle";
 import PaletteGenerator from "./components/PaletteGenerator";
+import CommandPalette from "./components/CommandPalette";
+import { useCommandPalette } from "./hooks/useCommandPalette";
 
 type Threshold = "aa_normal" | "aa_large" | "aaa_normal" | "aaa_large" | "ui_graphic";
 
@@ -26,16 +28,19 @@ export default function Page() {
   const [showExport, setShowExport] = useState(false);
   const [showAPIInfo, setShowAPIInfo] = useState(false);
   const [showDocs, setShowDocs] = useState(false);
+  
+  // Hook para Command Palette
+  const { isOpen: isCommandPaletteOpen, closeCommandPalette } = useCommandPalette();
 
   // Bloquear scroll cuando cualquier modal esté abierto
   useEffect(() => {
-    const hasOpenModal = showAPIInfo || showDocs || showAnalysis || showExport;
+    const hasOpenModal = showAPIInfo || showDocs || showAnalysis || showExport || isCommandPaletteOpen;
     document.body.style.overflow = hasOpenModal ? 'hidden' : 'unset';
     
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showAPIInfo, showDocs, showAnalysis, showExport]);
+  }, [showAPIInfo, showDocs, showAnalysis, showExport, isCommandPaletteOpen]);
 
   // Análisis automático cuando cambian los colores
   useEffect(() => {
@@ -109,6 +114,28 @@ export default function Page() {
     navigator.clipboard.writeText(text);
   };
 
+  // Funciones para Command Palette
+  const handleCommandAnalyze = () => {
+    setShowAnalysis(true);
+  };
+
+  const handleCommandGenerate = () => {
+    // Scroll hacia el generador de paletas
+    const generatorElement = document.querySelector('[data-generator]');
+    if (generatorElement) {
+      generatorElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCommandExport = () => {
+    setShowExport(true);
+  };
+
+  const handleToggleTheme = () => {
+    // Esta función se implementará cuando tengamos el ThemeToggle
+    console.log('Toggle theme');
+  };
+
   const getPassBadgeColor = (passes: string[]) => {
     if (passes.includes("aaa_normal")) return "bg-[var(--success)]/20 text-[var(--success)]";
     if (passes.includes("aa_normal")) return "bg-[var(--primary)]/20 text-[var(--primary)]";
@@ -150,6 +177,10 @@ export default function Page() {
               >
                 Docs
               </button>
+              <div className="hidden sm:flex items-center gap-1 text-xs text-[var(--muted-foreground)] bg-[var(--muted)]/20 px-2 py-1 rounded">
+                <span>Ctrl+K</span>
+                <span className="text-[var(--muted-foreground)]/60">Comandos</span>
+              </div>
               <a 
                 href="https://github.com/franlopezmora/colorcheck"
                 target="_blank"
@@ -564,7 +595,7 @@ export default function Page() {
                   </div>
                   
                   {/* Generador de Paleta */}
-                  <div className="lg:col-span-1">
+                  <div className="lg:col-span-1" data-generator>
                     <PaletteGenerator onPaletteGenerated={handlePaletteGenerated} />
                   </div>
                 </div>
@@ -685,6 +716,18 @@ export default function Page() {
             threshold={threshold} 
             isOpen={showExport}
             onClose={() => setShowExport(false)}
+          />
+
+          {/* Command Palette */}
+          <CommandPalette
+            isOpen={isCommandPaletteOpen}
+            onClose={closeCommandPalette}
+            onAnalyze={handleCommandAnalyze}
+            onGenerate={handleCommandGenerate}
+            onExport={handleCommandExport}
+            onToggleTheme={handleToggleTheme}
+            colors={colors}
+            pairs={pairs}
           />
         </div>
       </main>

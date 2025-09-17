@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generar paleta basada en el tema
-    const palette = generatePaletteByTheme(theme, context);
+    const palette = generatePaletteByTheme(theme);
 
     return NextResponse.json({
       palette,

@@ -1,5 +1,5 @@
 "use client";
-import { validatePalette, getContrastLevel } from "./ColorValidator";
+import { validatePalette } from "./ColorValidator";
 
 interface ValidationPanelProps {
   colors: string[];

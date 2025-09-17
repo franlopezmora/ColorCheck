@@ -1,36 +1,277 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎨 ColorCheck
 
-## Getting Started
+**Analizador de Accesibilidad de Paletas de Colores**
 
-First, run the development server:
+Una herramienta moderna y profesional para analizar la accesibilidad de paletas de colores según los estándares WCAG AA y AAA. ColorCheck te ayuda a crear diseños inclusivos verificando automáticamente el contraste entre colores y generando combinaciones accesibles.
+
+![ColorCheck Logo](https://img.shields.io/badge/ColorCheck-v1.0-blue?style=for-the-badge&logo=color-sampler)
+
+## ✨ Características
+
+### 🔍 **Análisis Automático**
+- **Verificación WCAG**: Cumple con estándares AA Normal (4.5:1), AA Large (3:1) y AAA Normal (7:1)
+- **Análisis en Tiempo Real**: Los resultados se actualizan automáticamente al cambiar los colores
+- **Múltiples Estándares**: Soporte para diferentes niveles de accesibilidad según el tipo de contenido
+
+### 🎨 **Generador de Paletas**
+- **Armonías de Color**: Complementario, Análogo, Triádico, Tetrádico y Monocromático
+- **Color Base Personalizable**: Selecciona cualquier color como punto de partida
+- **Generación Inteligente**: Algoritmos basados en teoría del color para crear paletas armónicas
+
+### 📊 **Análisis Detallado**
+- **Panel de Estadísticas**: Métricas completas de accesibilidad y contraste
+- **Advertencias Inteligentes**: Detecta problemas potenciales en la paleta
+- **Sugerencias de Mejora**: Recomendaciones automáticas para optimizar la accesibilidad
+
+### 📤 **Exportación Completa**
+- **Múltiples Formatos**: CSS, SCSS, Tailwind CSS, JSON
+- **Integración con Figma**: Exportación en formato Markdown y JSON para Figma
+- **Código Listo para Usar**: Variables CSS y clases pre-generadas
+
+### 🌐 **API REST**
+- **Endpoint `/api/pairs`**: Analiza paletas y devuelve combinaciones accesibles
+- **Endpoint `/api/tokens`**: Información sobre tokens de color
+- **Documentación Integrada**: Interfaz de usuario con ejemplos de uso
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+- Node.js 18+ 
+- pnpm (recomendado) o npm
+
+### Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clonar el repositorio
+git clone https://github.com/franlopezmora/colorcheck.git
+cd colorcheck
+
+# Instalar dependencias
+pnpm install
+
+# Ejecutar en modo desarrollo
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La aplicación estará disponible en `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Construcción para Producción
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Construir la aplicación
+pnpm build
 
-## Learn More
+# Ejecutar en producción
+pnpm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Cómo Usar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. **Agregar Colores**
+- Usa el selector de color visual
+- Ingresa códigos HEX directamente
+- Importa colores desde otras herramientas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. **Seleccionar Estándar**
+- **AA Normal (4.5:1)**: Para textos de párrafo estándar
+- **AA Large (3:1)**: Para textos grandes (24px+)
+- **AAA Normal (7:1)**: Para máxima accesibilidad
 
-## Deploy on Vercel
+### 3. **Revisar Resultados**
+- Ve las combinaciones accesibles encontradas
+- Revisa los niveles de contraste
+- Copia el código CSS directamente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. **Generar Paletas**
+- Selecciona un color base
+- Elige el tipo de armonía
+- Genera automáticamente una paleta armónica
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔧 API Reference
+
+### POST `/api/pairs`
+
+Analiza una paleta de colores y devuelve combinaciones accesibles.
+
+**Parámetros:**
+```json
+{
+  "palette": ["#0EA5E9", "#111827", "#F59E0B"],
+  "threshold": "aa_normal",
+  "limit": 20
+}
+```
+
+**Respuesta:**
+```json
+{
+  "ok": true,
+  "threshold": "aa_normal",
+  "pairs": [
+    {
+      "fg": "#111827",
+      "bg": "#0EA5E9", 
+      "ratio": 4.8,
+      "passes": ["aa_normal", "aa_large"]
+    }
+  ]
+}
+```
+
+### GET `/api/tokens`
+
+Obtiene información sobre tokens de color y variables CSS.
+
+**Respuesta:**
+```json
+{
+  "ok": true,
+  "tokens": {
+    "primary": "#0EA5E9",
+    "secondary": "#111827",
+    "accent": "#F59E0B"
+  }
+}
+```
+
+## 🏗️ Arquitectura del Proyecto
+
+```
+colorcheck/
+├── src/
+│   ├── app/
+│   │   ├── api/                 # API Routes
+│   │   │   ├── analyze/         # Análisis de colores
+│   │   │   ├── pairs/           # Combinaciones accesibles
+│   │   │   └── tokens/          # Tokens de color
+│   │   ├── components/          # Componentes React
+│   │   │   ├── ColorPalette.tsx # Selector de colores
+│   │   │   ├── PaletteGenerator.tsx # Generador de paletas
+│   │   │   ├── AnalysisPanel.tsx # Panel de análisis
+│   │   │   ├── ExportPanel.tsx  # Panel de exportación
+│   │   │   └── ...
+│   │   ├── hooks/               # Custom Hooks
+│   │   └── globals.css          # Estilos globales
+├── lib/                         # Lógica de negocio
+│   ├── colors.ts               # Manipulación de colores
+│   ├── contrast.ts            # Cálculo de contraste
+│   ├── wcag.ts               # Estándares WCAG
+│   └── index.ts              # API principal
+└── public/                    # Assets estáticos
+```
+
+## 🎨 Tecnologías Utilizadas
+
+### Frontend
+- **Next.js 15.5.3**: Framework React con App Router
+- **React 19.1.0**: Biblioteca de interfaz de usuario
+- **TypeScript**: Tipado estático
+- **Tailwind CSS 4**: Framework de estilos utilitarios
+
+### Backend
+- **Next.js API Routes**: API REST integrada
+- **Algoritmos de Color**: Conversión HEX/HSL/RGB
+- **Cálculo de Contraste**: Implementación WCAG 2.1
+
+### Herramientas de Desarrollo
+- **ESLint**: Linting de código
+- **pnpm**: Gestor de paquetes
+- **PostCSS**: Procesamiento de CSS
+
+## 📋 Estándares WCAG Implementados
+
+| Estándar | Contraste Mínimo | Uso Recomendado |
+|----------|------------------|-----------------|
+| **AA Normal** | 4.5:1 | Textos de párrafo (~18px) |
+| **AA Large** | 3:1 | Textos grandes (~24px) |
+| **AAA Normal** | 7:1 | Máxima accesibilidad |
+| **AAA Large** | 4.5:1 | Textos grandes AAA |
+| **UI Graphic** | 3:1 | Elementos de interfaz |
+
+## 🌟 Características Avanzadas
+
+### 🎨 **Generador de Paletas Inteligente**
+- **Armonía Complementaria**: Colores opuestos en el círculo cromático
+- **Armonía Análoga**: Colores adyacentes para transiciones suaves
+- **Armonía Triádica**: Tres colores separados 120° para máximo contraste
+- **Armonía Tetrádica**: Cuatro colores para paletas complejas
+- **Armonía Monocromática**: Variaciones de un solo tono
+
+### 📊 **Análisis Profundo**
+- **Detección de Problemas**: Identifica colores problemáticos automáticamente
+- **Métricas de Accesibilidad**: Porcentaje de combinaciones accesibles
+- **Análisis de Temperatura**: Detecta paletas cálidas/frías
+- **Sugerencias Contextuales**: Recomendaciones basadas en el análisis
+
+### 🔄 **Exportación Flexible**
+- **CSS Variables**: Variables CSS listas para usar
+- **SCSS**: Compatible con preprocesadores
+- **Tailwind CSS**: Clases utilitarias personalizadas
+- **JSON**: Datos estructurados para integración
+- **Figma**: Formatos específicos para diseño
+
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+### Áreas de Contribución
+- 🐛 **Bug Fixes**: Corrección de errores
+- ✨ **Nuevas Features**: Funcionalidades adicionales
+- 📚 **Documentación**: Mejoras en la documentación
+- 🎨 **UI/UX**: Mejoras en la interfaz
+- ⚡ **Performance**: Optimizaciones de rendimiento
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👨‍💻 Autor
+
+**Francisco López Mora**
+- 📧 Email: franciscolopezmora3@gmail.com
+- 🐙 GitHub: [@franlopezmora](https://github.com/franlopezmora)
+- 💼 LinkedIn: [Francisco López Mora](https://linkedin.com/in/franlopezmora)
+
+## 🙏 Agradecimientos
+
+- **WCAG Guidelines**: Por los estándares de accesibilidad web
+- **Next.js Team**: Por el excelente framework
+- **Tailwind CSS**: Por el sistema de diseño utilitario
+- **Comunidad Open Source**: Por las herramientas y librerías utilizadas
+
+## 📈 Roadmap
+
+### Versión 1.1
+- [ ] Soporte para más formatos de color (RGB, HSL, LAB)
+- [ ] Integración con herramientas de diseño (Adobe XD, Sketch)
+- [ ] Análisis de daltonismo
+- [ ] Exportación a más formatos (LESS, Stylus)
+
+### Versión 1.2
+- [ ] API de análisis por lotes
+- [ ] Integración con sistemas de diseño
+- [ ] Análisis de paletas existentes (URL)
+- [ ] Modo oscuro/claro automático
+
+### Versión 2.0
+- [ ] Plugin para Figma
+- [ ] Extensión para navegadores
+- [ ] API GraphQL
+- [ ] Análisis de imágenes
+
+---
+
+<div align="center">
+
+**¿Te gusta ColorCheck? ¡Dale una ⭐ al repositorio!**
+
+[![GitHub stars](https://img.shields.io/github/stars/franlopezmora/colorcheck?style=social)](https://github.com/franlopezmora/colorcheck)
+[![GitHub forks](https://img.shields.io/github/forks/franlopezmora/colorcheck?style=social)](https://github.com/franlopezmora/colorcheck)
+
+</div>

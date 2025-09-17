@@ -238,34 +238,6 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 - 🐙 GitHub: [@franlopezmora](https://github.com/franlopezmora)
 - 💼 LinkedIn: [Francisco López Mora](https://linkedin.com/in/franciscolopezmora)
 
-## 🙏 Agradecimientos
-
-- **WCAG Guidelines**: Por los estándares de accesibilidad web
-- **Next.js Team**: Por el excelente framework
-- **Tailwind CSS**: Por el sistema de diseño utilitario
-- **Comunidad Open Source**: Por las herramientas y librerías utilizadas
-
-## 📈 Roadmap
-
-### Versión 1.1
-- [ ] Soporte para más formatos de color (RGB, HSL, LAB)
-- [ ] Integración con herramientas de diseño (Adobe XD, Sketch)
-- [ ] Análisis de daltonismo
-- [ ] Exportación a más formatos (LESS, Stylus)
-
-### Versión 1.2
-- [ ] API de análisis por lotes
-- [ ] Integración con sistemas de diseño
-- [ ] Análisis de paletas existentes (URL)
-- [ ] Modo oscuro/claro automático
-
-### Versión 2.0
-- [ ] Plugin para Figma
-- [ ] Extensión para navegadores
-- [ ] API GraphQL
-- [ ] Análisis de imágenes
-
----
 
 <div align="center">
 

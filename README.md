@@ -140,24 +140,24 @@ Obtiene información sobre tokens de color y variables CSS.
 colorcheck/
 ├── src/
 │   ├── app/
-│   │   ├── api/                 # API Routes
-│   │   │   ├── analyze/         # Análisis de colores
-│   │   │   ├── pairs/           # Combinaciones accesibles
-│   │   │   └── tokens/          # Tokens de color
-│   │   ├── components/          # Componentes React
-│   │   │   ├── ColorPalette.tsx # Selector de colores
-│   │   │   ├── PaletteGenerator.tsx # Generador de paletas
-│   │   │   ├── AnalysisPanel.tsx # Panel de análisis
-│   │   │   ├── ExportPanel.tsx  # Panel de exportación
+│   │   ├── api/                         # API Routes
+│   │   │   ├── analyze/                 # Análisis de colores
+│   │   │   ├── pairs/                   # Combinaciones accesibles
+│   │   │   └── tokens/                  # Tokens de color
+│   │   ├── components/                  # Componentes React
+│   │   │   ├── ColorPalette.tsx         # Selector de colores
+│   │   │   ├── PaletteGenerator.tsx     # Generador de paletas
+│   │   │   ├── AnalysisPanel.tsx        # Panel de análisis
+│   │   │   ├── ExportPanel.tsx          # Panel de exportación
 │   │   │   └── ...
-│   │   ├── hooks/               # Custom Hooks
-│   │   └── globals.css          # Estilos globales
-├── lib/                         # Lógica de negocio
-│   ├── colors.ts               # Manipulación de colores
-│   ├── contrast.ts            # Cálculo de contraste
-│   ├── wcag.ts               # Estándares WCAG
-│   └── index.ts              # API principal
-└── public/                    # Assets estáticos
+│   │   ├── hooks/                       # Custom Hooks
+│   │   └── globals.css                  # Estilos globales
+├── lib/                                 # Lógica de negocio
+│   ├── colors.ts                        # Manipulación de colores
+│   ├── contrast.ts                      # Cálculo de contraste
+│   ├── wcag.ts                          # Estándares WCAG
+│   └── index.ts                         # API principal
+└── public/                              # Assets estáticos
 ```
 
 ## 🎨 Tecnologías Utilizadas

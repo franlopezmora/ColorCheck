@@ -147,7 +147,9 @@ export default function PaletteGenerator({ onPaletteGenerated }: PaletteGenerato
   return (
     <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] p-6">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-lg">🎨</span>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+        </svg>
         <h3 className="text-lg font-semibold text-[var(--foreground)]">
           Generador de Paleta
         </h3>

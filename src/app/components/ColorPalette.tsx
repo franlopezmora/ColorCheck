@@ -5,9 +5,10 @@ import ColorPicker from "./ColorPicker";
 interface ColorPaletteProps {
   colors: string[];
   onChange: (colors: string[]) => void;
+  onShowToast?: (message: string) => void;
 }
 
-export default function ColorPalette({ colors, onChange }: ColorPaletteProps) {
+export default function ColorPalette({ colors, onChange, onShowToast }: ColorPaletteProps) {
   const [showAddColor, setShowAddColor] = useState(false);
   const [newColor, setNewColor] = useState("#000000");
   const [editingColors, setEditingColors] = useState<Record<number, string | undefined>>({});
@@ -157,6 +158,7 @@ export default function ColorPalette({ colors, onChange }: ColorPaletteProps) {
                 className="text-xs font-mono px-2 py-1 rounded border border-[var(--border)] cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => {
                   navigator.clipboard.writeText(color);
+                  onShowToast?.(`Color ${color} copiado al portapapeles`);
                 }}
                 title="Click para copiar"
                 style={{ 
@@ -240,6 +242,7 @@ export default function ColorPalette({ colors, onChange }: ColorPaletteProps) {
           onClick={() => setShowAddColor(true)}
           className="w-full py-3 border-2 border-dashed border-[var(--border)] rounded-lg text-[var(--muted-foreground)] hover:border-[var(--muted-foreground)] hover:text-[var(--foreground)] focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background)] transition-colors"
           aria-label="Agregar un nuevo color a la paleta"
+          data-add-color
         >
           + Agregar Color
         </button>
@@ -287,7 +290,7 @@ export default function ColorPalette({ colors, onChange }: ColorPaletteProps) {
           aria-label="Área de texto para ingresar múltiples colores HEX"
         />
         <div className="text-xs text-[var(--muted-foreground)]">
-          💡 Presiona Enter libremente para crear nuevas líneas. Usa Ctrl+Enter para aplicar cambios o haz click fuera del área.
+          Presiona <kbd className="px-1.5 py-0.5 text-xs bg-[var(--muted)] border border-[var(--border)] rounded font-mono">Enter</kbd> libremente para crear nuevas líneas. Usa <kbd className="px-1.5 py-0.5 text-xs bg-[var(--muted)] border border-[var(--border)] rounded font-mono">Ctrl+Enter</kbd> para aplicar cambios o haz click fuera del área.
         </div>
       </div>
     </div>

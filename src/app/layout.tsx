@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,12 +17,16 @@ export const metadata: Metadata = {
   description: "Herramienta para analizar la accesibilidad de paletas de colores según los estándares WCAG AA y AAA",
   keywords: ["accesibilidad", "colores", "WCAG", "contraste", "diseño web"],
   authors: [{ name: "ColorCheck Team" }],
-  viewport: "width=device-width, initial-scale=1",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
     apple: "/favicon.svg",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

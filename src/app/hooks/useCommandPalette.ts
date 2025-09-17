@@ -12,48 +12,50 @@ interface UseCommandPaletteReturn {
 export function useCommandPalette(): UseCommandPaletteReturn {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openCommandPalette = useCallback(() => {
-    setIsOpen(true);
-  }, []);
+  const openCommandPalette = useCallback(() => setIsOpen(true), []);
+  const closeCommandPalette = useCallback(() => setIsOpen(false), []);
+  const toggleCommandPalette = useCallback(() => setIsOpen(p => !p), []);
 
-  const closeCommandPalette = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
-  const toggleCommandPalette = useCallback(() => {
-    setIsOpen(prev => !prev);
-  }, []);
-
-  // Manejar atajo Ctrl+K (o Cmd+K en Mac)
   useEffect(() => {
+    const isMac =
+      typeof window !== 'undefined' &&
+      /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Verificar si es Ctrl+K (Windows/Linux) o Cmd+K (Mac)
-      const isCtrlK = (event.ctrlKey || event.metaKey) && event.key === 'k';
-      
-      if (isCtrlK) {
+      const key = event.key.toLowerCase();
+
+      // --- Abrir paleta ---
+      // macOS: Cmd+K
+      const openOnMacCmdK = isMac && event.metaKey && !event.repeat && (event.code === 'KeyK' || key === 'k');
+      // Win/Linux: Ctrl+K (pedido) + backup Ctrl+Space y Ctrl+/
+      const openOnWinCtrlK = !isMac && event.ctrlKey && !event.repeat && (event.code === 'KeyK' || key === 'k');
+      const openOnCtrlSpace = !isMac && event.ctrlKey && !event.repeat && event.code === 'Space';
+      const openOnCtrlSlash = !isMac && event.ctrlKey && !event.repeat && (event.code === 'Slash' || key === '/');
+
+      if (!isOpen && (openOnMacCmdK || openOnWinCtrlK || openOnCtrlSpace || openOnCtrlSlash)) {
         event.preventDefault();
-        toggleCommandPalette();
+        event.stopPropagation();
+        openCommandPalette();
+        return;
       }
 
-      // Cerrar con Escape cuando está abierto
-      if (event.key === 'Escape' && isOpen) {
+      // --- Cerrar con Escape ---
+      if (isOpen && key === 'escape') {
         event.preventDefault();
+        event.stopPropagation();
         closeCommandPalette();
       }
     };
 
-    // Agregar listener solo cuando el componente está montado
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, toggleCommandPalette, closeCommandPalette]);
+    // capture:true para interceptar antes que inputs
+    window.addEventListener('keydown', handleKeyDown, { capture: true });
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, [isOpen, openCommandPalette, closeCommandPalette]);
 
   return {
     isOpen,
     openCommandPalette,
     closeCommandPalette,
-    toggleCommandPalette
+    toggleCommandPalette,
   };
 }

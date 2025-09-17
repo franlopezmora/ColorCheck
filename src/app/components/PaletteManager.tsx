@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePaletteStorage, SavedPalette } from '../hooks/usePaletteStorage';
 
 interface PaletteManagerProps {
@@ -175,6 +175,43 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
     }).format(date);
   };
 
+  // Manejar tecla Escape para cerrar el modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  // Manejar tecla Escape para cerrar el modal del editor de colores
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showColorEditor) {
+        setShowColorEditor(null);
+        setEditingColorIndex(null);
+        setEditingColorValue('');
+        setError('');
+      }
+    };
+
+    if (showColorEditor) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [showColorEditor]);
+
   if (!isOpen) return null;
 
   return (
@@ -190,7 +227,12 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl font-semibold text-[var(--foreground)]">🎨 Gestor de Paletas</h2>
+              <h2 className="text-xl font-semibold text-[var(--foreground)] flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                </svg>
+                Gestor de Paletas
+              </h2>
               <p className="text-sm text-[var(--muted-foreground)] mt-1">
                 Guarda y gestiona tus paletas de colores
               </p>
@@ -315,7 +357,11 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
               </div>
             ) : savedPalettes.length === 0 ? (
               <div className="text-center py-8">
-                <div className="text-4xl mb-3">🎨</div>
+                <div className="mb-3">
+                  <svg className="w-12 h-12 mx-auto text-[var(--muted-foreground)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                  </svg>
+                </div>
                 <p className="text-[var(--muted-foreground)]">No tienes paletas guardadas</p>
                 <p className="text-sm text-[var(--muted-foreground)] mt-1">
                   Guarda tu primera paleta para comenzar
@@ -450,7 +496,12 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
           >
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-[var(--foreground)]">🎨 Editar Color</h3>
+                <h3 className="text-lg font-semibold text-[var(--foreground)] flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                  </svg>
+                  Editar Color
+                </h3>
                 <button
                   onClick={() => {
                     setShowColorEditor(null);

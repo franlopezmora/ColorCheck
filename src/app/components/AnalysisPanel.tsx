@@ -368,10 +368,10 @@ export default function AnalysisPanel({ colors, pairs, threshold, isOpen, onClos
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 border-2 border-[var(--border)] ${
                 activeTab === tab.id
-                  ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
-                  : 'bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80'
+                  ? 'bg-[var(--primary)]/90 text-[var(--primary-foreground)] hover:bg-[var(--primary)]/70'
+                  : 'bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/50 hover:border-[var(--muted-foreground)]/40'
               }`}
             >
               {tab.icon} {tab.label}

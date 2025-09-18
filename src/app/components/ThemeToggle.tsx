@@ -9,8 +9,8 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="w-8 h-8 rounded-lg bg-[var(--muted)] flex items-center justify-center">
-        <div className="w-4 h-4 rounded-full bg-[var(--muted-foreground)] animate-pulse"></div>
+      <button className="p-2 rounded-lg bg-[var(--card)] flex items-center justify-center">
+        <div className="w-5 h-5 rounded-full bg-[var(--muted-foreground)] animate-pulse"></div>
       </button>
     );
   }
@@ -31,15 +31,13 @@ export default function ThemeToggle() {
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`w-8 h-8 rounded-lg bg-[var(--muted)] flex items-center justify-center transition-colors ${
-        isHovered ? "bg-[var(--accent)] ring-2 ring-[var(--primary)] ring-offset-2 ring-offset-[var(--background)]" : ""
-      }`}
+      className={`p-2 rounded-lg bg-[var(--card)] hover:bg-[var(--muted)]/100 flex items-center justify-center transition-colors text-[var(--muted-foreground)] hover:text-[var(--foreground)]`}
       aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
       title={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
     >
       {theme === "light" ? (
         <svg
-          className="w-4 h-4 text-[var(--muted-foreground)]"
+          className="w-5 h-5 text-current"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -54,7 +52,7 @@ export default function ThemeToggle() {
         </svg>
       ) : (
         <svg
-          className="w-4 h-4 text-[var(--muted-foreground)]"
+          className="w-5 h-5 text-current"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

@@ -237,9 +237,9 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                 Guarda y gestiona tus paletas de colores
               </p>
             </div>
-            <button
+              <button
               onClick={onClose}
-              className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]"
+              className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]/50"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -287,7 +287,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                 <h3 className="text-lg font-semibold text-[var(--foreground)]">Guardar Paleta Actual</h3>
                 <button
                   onClick={() => setShowSaveForm(!showSaveForm)}
-                  className="px-3 py-1 text-sm bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors"
+                  className="px-3 py-1 text-sm bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/70 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                 >
                   {showSaveForm ? 'Cancelar' : 'Guardar'}
                 </button>
@@ -316,7 +316,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                     <div className="flex gap-2">
                       <button
                         onClick={handleSavePalette}
-                        className="px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors"
+                        className="px-4 py-2 bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/70 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                       >
                         Guardar
                       </button>
@@ -326,7 +326,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                           setPaletteName('');
                           setError('');
                         }}
-                        className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors"
+                        className="px-4 py-2 bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/50 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                       >
                         Cancelar
                       </button>
@@ -402,7 +402,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                             </button>
                             <button
                               onClick={() => setShowEditForm(null)}
-                              className="px-2 py-1 text-xs bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded hover:bg-[var(--secondary)]/80"
+                              className="px-2 py-1 text-xs bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded hover:bg-[var(--secondary)]/50 border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                             >
                               ✕
                             </button>
@@ -417,14 +417,14 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                       <div className="flex gap-1">
                         <button
                           onClick={() => handleLoadPalette(palette)}
-                          className="px-3 py-1 text-xs bg-[var(--primary)] text-[var(--primary-foreground)] rounded hover:bg-[var(--primary)]/90 transition-colors"
+                          className="px-3 py-1 text-xs bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded hover:bg-[var(--primary)]/70 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                           title="Cargar paleta"
                         >
                           Cargar
                         </button>
                         <button
                           onClick={() => setShowEditForm(showEditForm === palette.id ? null : palette.id)}
-                          className="px-2 py-1 text-xs bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded hover:bg-[var(--secondary)]/80 transition-colors"
+                          className="px-2 py-1 text-xs bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded hover:bg-[var(--secondary)]/50 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                           title="Editar nombre"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -449,7 +449,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                         <span className="text-xs text-[var(--muted-foreground)]">Colores ({palette.colors.length})</span>
                         <button
                           onClick={() => handleAddColorToPalette(palette.id)}
-                          className="text-xs px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] rounded hover:bg-[var(--primary)]/90 transition-colors"
+                          className="text-xs px-2 py-1 bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded hover:bg-[var(--primary)]/70 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                           title="Agregar color"
                         >
                           + Agregar
@@ -581,7 +581,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleSaveColorEdit(showColorEditor)}
-                    className="flex-1 px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors"
+                    className="flex-1 px-4 py-2 bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/70 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                   >
                     Guardar
                   </button>
@@ -592,7 +592,7 @@ export default function PaletteManager({ currentColors, onLoadPalette, isOpen, o
                       setEditingColorValue('');
                       setError('');
                     }}
-                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors"
+                    className="px-4 py-2 bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/50 transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                   >
                     Cancelar
                   </button>

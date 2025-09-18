@@ -103,3 +103,19 @@ body {
 .animate-slide-in {
   animation: slideIn 0.3s ease-out;
 }
+
+/* Cursor semantics for interactive controls */
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+button[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* Elements acting as buttons should also show pointer */
+[role="button"],
+a[role="button"] {
+  cursor: pointer;
+}

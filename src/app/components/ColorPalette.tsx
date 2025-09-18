@@ -229,7 +229,7 @@ export default function ColorPalette({ colors, onChange, onShowToast }: ColorPal
               </button>
               <button
                 onClick={() => setShowAddColor(false)}
-                className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 focus:ring-2 focus:ring-[var(--muted-foreground)] focus:ring-offset-2 focus:ring-offset-[var(--background)] transition-colors"
+                className="px-4 py-2 bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/50 focus:ring-2 focus:ring-[var(--muted-foreground)] focus:ring-offset-2 focus:ring-offset-[var(--background)] transition-colors border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                 aria-label="Cancelar agregar color"
               >
                 Cancelar

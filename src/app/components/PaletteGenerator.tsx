@@ -220,7 +220,7 @@ export default function PaletteGenerator({ onPaletteGenerated }: PaletteGenerato
         <button
           onClick={handleGenerate}
           disabled={isGenerating}
-          className="w-full px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+          className="w-full px-4 py-3 bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/70 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
         >
           {isGenerating ? (
             <div className="flex items-center justify-center gap-2">

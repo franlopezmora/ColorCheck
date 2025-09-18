@@ -413,7 +413,7 @@ export default function ExportPanel({ pairs, colors, threshold, isOpen, onClose,
           </div>
           <button
             onClick={() => copyToClipboard(getContent(), getTabLabel())}
-            className="px-4 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium"
+            className="px-4 py-2 bg-[var(--primary)]/90 text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/70 transition-colors text-sm font-medium border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
           >
             Copiar
           </button>
@@ -425,10 +425,10 @@ export default function ExportPanel({ pairs, colors, threshold, isOpen, onClose,
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 border-2 border-[var(--border)] ${
                 activeTab === tab.id
-                  ? 'bg-[var(--primary)] text-[var(--primary-foreground)]'
-                  : 'bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80'
+                  ? 'bg-[var(--primary)]/90 text-[var(--primary-foreground)] hover:bg-[var(--primary)]/70'
+                  : 'bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/50 hover:border-[var(--muted-foreground)]/40'
               }`}
             >
               {tab.icon} {tab.label}

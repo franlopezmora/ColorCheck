@@ -4,6 +4,7 @@ import ColorPalette from "./components/ColorPalette";
 import ExportPanel from "./components/ExportPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
 import ThemeToggle from "./components/ThemeToggle";
+import Tooltip from "./components/Tooltip";
 import PaletteGenerator from "./components/PaletteGenerator";
 import CommandPalette from "./components/CommandPalette";
 import PaletteManager from "./components/PaletteManager";
@@ -269,13 +270,13 @@ export default function Page() {
             <div className="flex items-center space-x-4">
               <button 
                 onClick={() => setShowAPIInfo(!showAPIInfo)}
-                className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-2 rounded-lg bg-[var(--card)] hover:bg-[var(--muted)]/100"
               >
                 API
               </button>
               <button 
                 onClick={() => setShowDocs(!showDocs)}
-                className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-2 rounded-lg bg-[var(--card)] hover:bg-[var(--muted)]/100"
                 data-docs-button
               >
                 Docs
@@ -288,8 +289,9 @@ export default function Page() {
                 href="https://github.com/franlopezmora/colorcheck"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-2 rounded-lg bg-[var(--card)] hover:bg-[var(--muted)]/100"
                 aria-label="Ver en GitHub"
+                title="Ver en GitHub"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -322,7 +324,7 @@ export default function Page() {
                 </h2>
                 <button
                   onClick={() => setShowAPIInfo(false)}
-                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]"
+                className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded-lg hover:bg-[var(--muted)]/50"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -679,7 +681,7 @@ export default function Page() {
                 <div className="bg-[var(--card)] rounded-lg border border-[var(--border)] p-4">
                   <button
                     onClick={() => setShowPaletteManager(true)}
-                    className="w-full px-3 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/90 transition-colors text-sm font-medium flex items-center justify-center gap-2"
+                    className="w-full px-3 py-2 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-lg hover:bg-[var(--primary)]/80 transition-colors text-sm font-medium flex items-center justify-center gap-2 border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -766,7 +768,7 @@ export default function Page() {
                     pairs.map(p => `${p.fg} on ${p.bg} - Ratio: ${p.ratio} - ${p.passes.join(", ")}`).join('\n'),
                     'Lista de combinaciones copiada al portapapeles'
                   )}
-                  className="px-4 py-2 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/80 transition-colors flex items-center"
+                  className="px-4 py-2 rounded-lg bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] hover:bg-[var(--secondary)]/50 transition-colors flex items-center border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -780,7 +782,7 @@ export default function Page() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setShowAnalysis(true)}
-                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors text-sm font-medium flex items-center"
+                    className="px-4 py-2 bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/50 transition-colors text-sm font-medium flex items-center border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -789,7 +791,7 @@ export default function Page() {
                   </button>
                   <button
                     onClick={() => setShowExport(true)}
-                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/80 transition-colors text-sm font-medium flex items-center"
+                    className="px-4 py-2 bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/50 transition-colors text-sm font-medium flex items-center border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -798,7 +800,7 @@ export default function Page() {
                   </button>
                   <button
                     onClick={() => setShowPaletteManager(true)}
-                    className="px-4 py-2 bg-[var(--secondary)] text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/90 transition-colors text-sm font-medium flex items-center"
+                    className="px-4 py-2 bg-[var(--secondary)]/90 text-[var(--secondary-foreground)] rounded-lg hover:bg-[var(--secondary)]/50 transition-colors text-sm font-medium flex items-center border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -848,7 +850,7 @@ export default function Page() {
                       <div className="mt-auto">
                         <button
                           onClick={() => copyToClipboard(`color: ${p.fg}; background-color: ${p.bg};`, 'CSS de combinación copiado al portapapeles')}
-                          className="w-full py-3 px-4 rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] text-sm font-medium transition-colors hover:bg-[var(--primary)]/90 shadow-sm"
+                          className="w-full py-3 px-4 rounded-lg bg-[var(--primary)]/90 text-[var(--primary-foreground)] text-sm font-medium transition-colors hover:bg-[var(--primary)]/70 border-2 border-[var(--border)] hover:border-[var(--muted-foreground)]/40"
                         >
                           Copiar CSS
                         </button>

@@ -169,6 +169,7 @@ colorcheck/
 - **Tailwind CSS 4**: Framework de estilos utilitarios
 
 ### Backend
+- **Node.js**: Runtime de JavaScript para el servidor
 - **Next.js API Routes**: API REST integrada
 - **Algoritmos de Color**: Conversión HEX/HSL/RGB
 - **Cálculo de Contraste**: Implementación WCAG 2.1

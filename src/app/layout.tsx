@@ -18,9 +18,12 @@ export const metadata: Metadata = {
   keywords: ["accesibilidad", "colores", "WCAG", "contraste", "diseño web"],
   authors: [{ name: "ColorCheck Team" }],
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/icon.svg?v=2", type: "image/svg+xml" },
+      { url: "/icon.svg?v=2", sizes: "any" }
+    ],
+    shortcut: "/icon.svg?v=2",
+    apple: "/icon.svg?v=2",
   },
 };
 

@@ -1,10 +1,9 @@
 "use client";
 import { useTheme } from "../hooks/useTheme";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme, mounted } = useTheme();
-  const [isHovered, setIsHovered] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   if (!mounted) {
@@ -17,8 +16,6 @@ export default function ThemeToggle() {
 
   const handleClick = () => {
     toggleTheme();
-    // No resetear el estado hover para mantener el efecto visual
-    // setIsHovered(false);
     // Mantener el foco en el botón después del cambio de tema
     setTimeout(() => {
       buttonRef.current?.focus();
@@ -29,8 +26,6 @@ export default function ThemeToggle() {
     <button
       ref={buttonRef}
       onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       className={`p-2 rounded-lg bg-[var(--card)] hover:bg-[var(--muted)]/100 flex items-center justify-center transition-colors text-[var(--muted-foreground)] hover:text-[var(--foreground)]`}
       aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
       title={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}

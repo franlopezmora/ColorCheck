@@ -4,7 +4,6 @@ import ColorPalette from "./components/ColorPalette";
 import ExportPanel from "./components/ExportPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
 import ThemeToggle from "./components/ThemeToggle";
-import Tooltip from "./components/Tooltip";
 import PaletteGenerator from "./components/PaletteGenerator";
 import CommandPalette from "./components/CommandPalette";
 import PaletteManager from "./components/PaletteManager";
